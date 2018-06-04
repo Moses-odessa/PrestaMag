@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import ua.moses.prestamag.controller.PriceController;
@@ -48,10 +48,18 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final ListView listGroups = (ListView) findViewById(R.id.listGroups);
+        final ListView listCategories = (ListView) findViewById(R.id.listCategories);
         final ListView listGoods = (ListView) findViewById(R.id.listGoods);
-        viewsManager = new ViewsManager(this, listGroups, listGoods, new PriceController());
+        viewsManager = new ViewsManager(this, listCategories, listGoods, new PriceController());
         viewsManager.update();
+
+        listCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                viewsManager.setCurrentCategoryId((int) id);
+                viewsManager.update();
+            }
+        });
     }
 
     @Override
