@@ -32,5 +32,6 @@ public class ViewsManager {
 
     public void update(){
         listCategories.setAdapter(new CategoriesAdapter(priceController.getCategoriesList(currentCategoryId), context));
+        listGoods.setAdapter(new GoodsAdapter(priceController.getGoodsList(currentCategoryId), context));
     }
 }

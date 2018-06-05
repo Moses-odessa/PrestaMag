@@ -17,9 +17,30 @@ public class PriceController {
 
     public List<Good> getGoodsList(int parentCategoryId){
         List<Good> categoryList = new ArrayList<>();
-        categoryList.add(new Good(1, "Good 1", 1, "", 100, ""));
-        categoryList.add(new Good(2, "Good 2", 2, "", 110, ""));
-        categoryList.add(new Good(3, "Good 3", 3, "", 120, ""));
+        categoryList.add(new Good(1, "Good 1", 100, ""));
+        categoryList.add(new Good(2, "Good 2", 200, ""));
+        categoryList.add(new Good(3, "Good 3", 300, ""));
+        categoryList.add(new Good(4, "Good 11", 100, ""));
+        categoryList.add(new Good(5, "Good 21", 200, ""));
+        categoryList.add(new Good(6, "Good 31", 300, ""));
+        categoryList.add(new Good(7, "Good 12", 100, ""));
+        categoryList.add(new Good(8, "Good 22", 200, ""));
+        categoryList.add(new Good(9, "Good 32", 300, ""));
+        categoryList.add(new Good(10, "Good 13", 100, ""));
+        categoryList.add(new Good(11, "Good 23", 200, ""));
+        categoryList.add(new Good(12, "Good 33", 300, ""));
+        categoryList.add(new Good(13, "Good 1", 100, ""));
+        categoryList.add(new Good(14, "Good 2", 200, ""));
+        categoryList.add(new Good(15, "Good 3", 300, ""));
+        categoryList.add(new Good(16, "Good 11", 100, ""));
+        categoryList.add(new Good(17, "Good 21", 200, ""));
+        categoryList.add(new Good(18, "Good 31", 300, ""));
+        categoryList.add(new Good(19, "Good 12", 100, ""));
+        categoryList.add(new Good(20, "Good 22", 200, ""));
+        categoryList.add(new Good(21, "Good 32", 300, ""));
+        categoryList.add(new Good(22, "Good 13", 100, ""));
+        categoryList.add(new Good(23, "Good 23", 200, ""));
+        categoryList.add(new Good(24, "Good 33", 300, ""));
         return categoryList;
     }
 }
