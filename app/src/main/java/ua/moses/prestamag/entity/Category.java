@@ -1,21 +1,38 @@
 package ua.moses.prestamag.entity;
 
-public class Category {
-    int id;
-    String name;
-    int parentId;
+import com.google.gson.annotations.SerializedName;
 
-    public Category(int id, String name, int parentId) {
+import java.util.List;
+
+public class Category {
+    private int id;
+    @SerializedName("id_parent")
+    private int idParent;
+    private List<LocalizedTitle> name;
+
+    public Category(int id, int idParent, List<LocalizedTitle> name) {
         this.id = id;
+        this.idParent = idParent;
         this.name = name;
-        this.parentId = parentId;
     }
 
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
-        return name;
+        return name.get(0).getValue();
+    }
+
+    public void setName(String name) {
+        this.name.get(0).setValue(name);
+    }
+
+    public int getIdParent() {
+        return idParent;
     }
 }

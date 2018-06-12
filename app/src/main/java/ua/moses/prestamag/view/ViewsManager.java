@@ -1,37 +1,35 @@
 package ua.moses.prestamag.view;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
-import ua.moses.prestamag.controller.PriceController;
+import java.util.List;
+
+import ua.moses.prestamag.entity.Category;
+import ua.moses.prestamag.entity.Good;
 
 public class ViewsManager {
     private Context context;
     private ListView listCategories;
     private ListView listGoods;
-    private PriceController priceController;
-    private int currentCategoryId = 0;
 
-    public void setCurrentCategoryId(int currentCategoryId) {
-        this.currentCategoryId = currentCategoryId;
-    }
-
-    public int getCurrentCategoryId() {
-        return currentCategoryId;
-    }
-
-    public ViewsManager(Context context, ListView listCategories, ListView listGoods, PriceController priceController) {
+    public ViewsManager(Context context, ListView listCategories, ListView listGoods) {
         this.context = context;
         this.listCategories = listCategories;
         this.listGoods = listGoods;
-        this.priceController = priceController;
 
     }
 
-    public void update(){
-        listCategories.setAdapter(new CategoriesAdapter(priceController.getCategoriesList(currentCategoryId), context));
-        listGoods.setAdapter(new GoodsAdapter(priceController.getGoodsList(currentCategoryId), context));
+    public void updateGoods(List<Good> goodsList){
+        listGoods.setAdapter(new GoodsAdapter(goodsList, context));
+    }
+
+    public void updateCategories(List<Category> categoriesList) {
+        listCategories.setAdapter(new CategoriesAdapter(categoriesList, context));
+    }
+
+
+    public Context getContext() {
+        return context;
     }
 }

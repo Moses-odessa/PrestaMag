@@ -15,13 +15,14 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import ua.moses.prestamag.controller.PriceController;
+import ua.moses.prestamag.controller.DataController;
 import ua.moses.prestamag.view.ViewsManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ViewsManager viewsManager;
+    private DataController dataController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +51,15 @@ public class MainActivity extends AppCompatActivity
 
         final ListView listCategories = (ListView) findViewById(R.id.listCategories);
         final ListView listGoods = (ListView) findViewById(R.id.listGoods);
-        viewsManager = new ViewsManager(this, listCategories, listGoods, new PriceController());
-        viewsManager.update();
+        viewsManager = new ViewsManager(this, listCategories, listGoods);
+        dataController = new DataController(viewsManager);
+        dataController.updateCategoriesList(0);
 
         listCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                viewsManager.setCurrentCategoryId((int) id);
-                viewsManager.update();
+                //dataController.setCurrentCategoryId((int) id);
+                dataController.updateCategoriesList((int) id);
             }
         });
     }
