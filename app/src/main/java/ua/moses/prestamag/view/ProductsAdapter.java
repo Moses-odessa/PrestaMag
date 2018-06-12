@@ -11,13 +11,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import ua.moses.prestamag.R;
-import ua.moses.prestamag.entity.Good;
+import ua.moses.prestamag.entity.Product;
 
-public class GoodsAdapter extends BaseAdapter {
-    private List<Good> goodsList;
+public class ProductsAdapter extends BaseAdapter {
+    private List<Product> goodsList;
     private Context context;
 
-    public GoodsAdapter(List<Good> goodsList, Context context) {
+    public ProductsAdapter(List<Product> goodsList, Context context) {
         this.goodsList = goodsList;
         this.context = context;
     }

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ua.moses.prestamag.entity.Category;
-import ua.moses.prestamag.entity.Good;
+import ua.moses.prestamag.entity.Product;
 import ua.moses.prestamag.view.ViewsManager;
 
 public class DataController {
@@ -44,7 +43,7 @@ public class DataController {
                                 category = response.body().get("categories").get(0);
                                 category.setName("...");
                                 category.setId(category.getIdParent());
-                                categoriesList.add(0,category);
+                                categoriesList.add(0, category);
                             }
                             viewsManager.updateCategories(categoriesList);
                         }
@@ -70,14 +69,29 @@ public class DataController {
 
     }
 
-    public List<Good> getGoodsList(int parentCategoryId) {
-        List<Good> result = new ArrayList<>();
-        Call<List<Good>> call = service.listGoods(parentCategoryId);
-        try {
-            result.addAll(call.execute().body());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+    public void updateGoodsList(int parentCategoryId) {
+        Call<Map<String, List<Product>>> call = service.listProducts(parentCategoryId);
+        call.enqueue(new Callback<Map<String, List<Product>>>() {
+            @Override
+            public void onResponse(@NonNull Call<Map<String, List<Product>>> call, @NonNull Response<Map<String, List<Product>>> response) {
+                final List<Product> productsList = new ArrayList<>();
+                if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
+                    productsList.addAll(response.body().get("products"));
+                }
+                viewsManager.updateProducts(productsList);
+            }
+
+            @SuppressLint("ShowToast")
+            @Override
+            public void onFailure(@NonNull Call<Map<String, List<Product>>> call, @NonNull Throwable t) {
+                Toast.makeText(viewsManager.getContext(), "Connection error!!!\n" + t.getMessage(), Toast.LENGTH_LONG);
+                //viewsManager.updateCategories(categoriesList);
+            }
+        });
+    }
+
+    public void update(int parentCategoryId) {
+        updateCategoriesList(parentCategoryId);
+        updateGoodsList(parentCategoryId);
     }
 }

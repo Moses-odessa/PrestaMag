@@ -12,7 +12,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import ua.moses.prestamag.entity.Category;
-import ua.moses.prestamag.entity.Good;
+import ua.moses.prestamag.entity.Product;
 
 public interface PrestashopService {
     public static final Retrofit retrofit = new Retrofit.Builder()
@@ -29,6 +29,7 @@ public interface PrestashopService {
     @GET("categories/?output_format=JSON&display=[id,name,id_parent]")
     Call<Map<String,List<Category>>> categoryById(@Query("filter[id]") int... filter);
 
-    @GET("products/?display=[id,name,price,id_default_image]&filter[id_category_default]=[{id}]")
-    Call<List<Good>> listGoods(@Path("id") int parentCategoryId);
+    @Headers("authorization: Basic Q002N0M5MlVLWUZQRTJVNzgzN1lINEhHREJWNzhGQkg6")
+    @GET("products/?output_format=JSON&display=[id,name,price,id_default_image]")
+    Call<Map<String,List<Product>>> listProducts(@Query("filter[id_category_default]") int... filter);
 }

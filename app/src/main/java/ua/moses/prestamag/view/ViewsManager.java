@@ -6,7 +6,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import ua.moses.prestamag.entity.Category;
-import ua.moses.prestamag.entity.Good;
+import ua.moses.prestamag.entity.Product;
 
 public class ViewsManager {
     private Context context;
@@ -20,8 +20,8 @@ public class ViewsManager {
 
     }
 
-    public void updateGoods(List<Good> goodsList){
-        listGoods.setAdapter(new GoodsAdapter(goodsList, context));
+    public void updateProducts(List<Product> goodsList){
+        listGoods.setAdapter(new ProductsAdapter(goodsList, context));
     }
 
     public void updateCategories(List<Category> categoriesList) {

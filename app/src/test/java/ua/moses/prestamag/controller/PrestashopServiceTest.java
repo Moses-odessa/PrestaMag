@@ -8,8 +8,8 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Response;
-import ua.moses.prestamag.controller.PrestashopService;
 import ua.moses.prestamag.entity.Category;
+import ua.moses.prestamag.entity.Product;
 
 import static org.junit.Assert.*;
 
@@ -33,6 +33,16 @@ public class PrestashopServiceTest {
         Category category = body.get("categories").get(0);
         assertNotNull(category);
         assertEquals(1, category.getId());
+    }
+
+    @Test
+    public void listProductsTest() throws IOException {
+        PrestashopService service = PrestashopService.retrofit.create(PrestashopService.class);
+        Call<Map<String, List<Product>>> call = service.listProducts(2);
+        Map<String, List<Product>> body = call.execute().body();
+        List<Product> list = body.get("products");
+        assertNotNull(list);
+        assertNotEquals(0, list.size());
     }
 
 }

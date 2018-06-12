@@ -24,6 +24,7 @@ public class Category {
         this.id = id;
     }
 
+    //todo made getName and setName by lang id
     public String getName() {
         return name.get(0).getValue();
     }

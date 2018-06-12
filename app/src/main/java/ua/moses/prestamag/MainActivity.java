@@ -53,13 +53,13 @@ public class MainActivity extends AppCompatActivity
         final ListView listGoods = (ListView) findViewById(R.id.listGoods);
         viewsManager = new ViewsManager(this, listCategories, listGoods);
         dataController = new DataController(viewsManager);
-        dataController.updateCategoriesList(0);
+        dataController.update(0);
 
         listCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //dataController.setCurrentCategoryId((int) id);
-                dataController.updateCategoriesList((int) id);
+                dataController.update((int) id);
             }
         });
     }

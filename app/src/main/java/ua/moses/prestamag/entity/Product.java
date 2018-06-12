@@ -1,12 +1,14 @@
 package ua.moses.prestamag.entity;
 
-public class Good {
+import java.util.List;
+
+public class Product {
     private int id;
-    private String name;
+    private List<LocalizedTitle> name;
     private double price;
     private int idDefaultImage;
 
-    public Good(int id, String name, double price, int idDefaultImage) {
+    public Product(int id, List<LocalizedTitle> name, double price, int idDefaultImage) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -18,7 +20,7 @@ public class Good {
     }
 
     public String getName() {
-        return name;
+        return name.get(0).getValue();
     }
 
     public double getPrice() {
