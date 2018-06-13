@@ -16,11 +16,12 @@ import ua.moses.prestamag.entity.Product;
 import ua.moses.prestamag.view.ViewsManager;
 
 public class DataController {
-    private PrestashopService service = PrestashopService.retrofit.create(PrestashopService.class);
+    private PrestashopService service;
     private ViewsManager viewsManager;
 
     public DataController(ViewsManager viewsManager) {
         this.viewsManager = viewsManager;
+        this.service =  PrestashopService.retrofit(viewsManager.getContext()).create(PrestashopService.class);
     }
 
     public void updateCategoriesList(final int parentCategoryId) {
