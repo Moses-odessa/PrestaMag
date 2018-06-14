@@ -18,18 +18,19 @@ import ua.moses.prestamag.entity.Product;
 import static org.junit.Assert.*;
 
 public class PrestashopServiceTest {
-    Context context;
+    private PrestashopClient client;
 
     @Before
     public void setUp() throws Exception {
-        context = new MockContext();
+        Context context = new MockContext();
+        this.client = new PrestashopClient(context);
         assertNotNull(context);
 
     }
 
     @Test
     public void listCategoriesTest() throws IOException {
-        PrestashopService service = PrestashopService.retrofit(context).create(PrestashopService.class);
+        PrestashopService service = client.getService();
         Call<Map<String, List<Category>>> call = service.listCategories(0);
         Map<String, List<Category>> body = call.execute().body();
         List<Category> list = body.get("categories");
@@ -39,7 +40,7 @@ public class PrestashopServiceTest {
 
     @Test
     public void categoryByIdTest() throws IOException {
-        PrestashopService service = PrestashopService.retrofit(context).create(PrestashopService.class);
+        PrestashopService service = client.getService();
         Call<Map<String,List<Category>>> call = service.categoryById(1);
         Response<Map<String, List<Category>>> execute = call.execute();
         Map<String,List<Category>> body = execute.body();
@@ -50,7 +51,7 @@ public class PrestashopServiceTest {
 
     @Test
     public void listProductsTest() throws IOException {
-        PrestashopService service = PrestashopService.retrofit(context).create(PrestashopService.class);
+        PrestashopService service = client.getService();
         Call<Map<String, List<Product>>> call = service.listProducts(2);
         Map<String, List<Product>> body = call.execute().body();
         List<Product> list = body.get("products");

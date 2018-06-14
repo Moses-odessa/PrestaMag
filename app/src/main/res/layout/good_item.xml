@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/good_image"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="start"
         android:contentDescription="@string/goods_icon_title"/>
 

@@ -16,16 +16,16 @@ import ua.moses.prestamag.entity.Product;
 import ua.moses.prestamag.view.ViewsManager;
 
 public class DataController {
-    private PrestashopService service;
+    private PrestashopClient client;
     private ViewsManager viewsManager;
 
     public DataController(ViewsManager viewsManager) {
         this.viewsManager = viewsManager;
-        this.service =  PrestashopService.retrofit(viewsManager.getContext()).create(PrestashopService.class);
+        this.client =  new PrestashopClient(viewsManager.getContext());
     }
 
     public void updateCategoriesList(final int parentCategoryId) {
-        Call<Map<String, List<Category>>> call = service.listCategories(parentCategoryId);
+        Call<Map<String, List<Category>>> call = client.getService().listCategories(parentCategoryId);
         call.enqueue(new Callback<Map<String, List<Category>>>() {
             @Override
             public void onResponse(@NonNull Call<Map<String, List<Category>>> call, @NonNull Response<Map<String, List<Category>>> response) {
@@ -34,7 +34,7 @@ public class DataController {
                     categoriesList.addAll(response.body().get("categories"));
                 }
                 if (parentCategoryId != 0) {
-                    Call<Map<String, List<Category>>> callParent = service.categoryById(parentCategoryId);
+                    Call<Map<String, List<Category>>> callParent = client.getService().categoryById(parentCategoryId);
                     Map<String, List<Category>> body;
                     callParent.enqueue(new Callback<Map<String, List<Category>>>() {
                         @Override
@@ -71,7 +71,7 @@ public class DataController {
     }
 
     public void updateGoodsList(int parentCategoryId) {
-        Call<Map<String, List<Product>>> call = service.listProducts(parentCategoryId);
+        Call<Map<String, List<Product>>> call = client.getService().listProducts(parentCategoryId);
         call.enqueue(new Callback<Map<String, List<Product>>>() {
             @Override
             public void onResponse(@NonNull Call<Map<String, List<Product>>> call, @NonNull Response<Map<String, List<Product>>> response) {
@@ -79,7 +79,7 @@ public class DataController {
                 if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
                     productsList.addAll(response.body().get("products"));
                 }
-                viewsManager.updateProducts(productsList);
+                viewsManager.updateProducts(productsList, client.getOkHttpClient());
             }
 
             @SuppressLint("ShowToast")

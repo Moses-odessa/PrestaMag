@@ -5,6 +5,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
 import ua.moses.prestamag.entity.Category;
 import ua.moses.prestamag.entity.Product;
 
@@ -20,8 +21,8 @@ public class ViewsManager {
 
     }
 
-    public void updateProducts(List<Product> goodsList){
-        listGoods.setAdapter(new ProductsAdapter(goodsList, context));
+    public void updateProducts(List<Product> goodsList, OkHttpClient okHttpClient){
+        listGoods.setAdapter(new ProductsAdapter(goodsList, context, okHttpClient));
     }
 
     public void updateCategories(List<Category> categoriesList) {
