@@ -29,6 +29,12 @@ public class ProductsAdapter extends BaseAdapter {
         this.okHttpClient = okHttpClient;
     }
 
+    private static class ViewHolder {
+        TextView goodName;
+        TextView goodPrice;
+        ImageView goodImage;
+    }
+
     @Override
     public int getCount() {
         return productList.size();
@@ -46,17 +52,26 @@ public class ProductsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.good_item, parent, false);
-        TextView goodName = (TextView) rowView.findViewById(R.id.good_name);
-        goodName.setText(productList.get(position).getName());
-        TextView goodPrice = (TextView) rowView.findViewById(R.id.good_price);
-        goodPrice.setText("" + productList.get(position).getPrice());
-        ImageView goodImage = (ImageView) rowView.findViewById(R.id.good_image);
-        //goodImage.setImageResource(R.drawable.ic_menu_gallery);
+        ViewHolder viewHolder;
+
+        if (convertView == null){
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.good_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.goodName = (TextView) convertView.findViewById(R.id.good_name);
+            viewHolder.goodPrice = (TextView) convertView.findViewById(R.id.good_price);
+            viewHolder.goodImage = (ImageView) convertView.findViewById(R.id.good_image);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        viewHolder.goodName.setText(productList.get(position).getName());
+        viewHolder.goodPrice.setText("" + productList.get(position).getPrice());
 
 
+// todo control scrolling http://lucasr.org/2014/09/23/new-features-in-picasso/
         Picasso picasso = new Picasso.Builder(this.context)
                 .downloader(new OkHttp3Downloader(okHttpClient))
                 .build();
@@ -65,8 +80,8 @@ public class ProductsAdapter extends BaseAdapter {
                 .centerCrop()
                 .placeholder((R.drawable.ic_menu_gallery))
                 .error(R.drawable.ic_menu_send)
-                .into(goodImage);
+                .into(viewHolder.goodImage);
 
-        return rowView;
+        return convertView;
     }
 }

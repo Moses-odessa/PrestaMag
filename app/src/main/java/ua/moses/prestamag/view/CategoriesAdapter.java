@@ -21,6 +21,11 @@ public class CategoriesAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    private static class ViewHolder {
+        TextView categoryName;
+    }
+
+
     @Override
     public int getCount() {
         return categoryList.size();
@@ -38,12 +43,19 @@ public class CategoriesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.category_item, parent, false);
-        TextView textView = (TextView) rowView.findViewById(R.id.category_name);
-        textView.setText(categoryList.get(position).getName());
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.category_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.categoryName = (TextView) convertView.findViewById(R.id.category_name);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        viewHolder.categoryName.setText(categoryList.get(position).getName());
 
-        return rowView;
+        return convertView;
     }
 }

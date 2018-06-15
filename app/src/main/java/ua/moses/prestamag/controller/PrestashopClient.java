@@ -15,10 +15,11 @@ public class PrestashopClient {
     private final String SECURITY_KEY = "CM67C92UKYFPE2U7837YH4HGDBV78FBH";
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
+    private final int CACHE_SIZE = 50;
 
     public PrestashopClient(Context context) {
         File httpCacheDirectory = new File(context.getCacheDir(), ".responsesCache");
-        int cacheSize = 10 * 1024 * 1024; // 10 MB
+        int cacheSize = CACHE_SIZE * 1024 * 1024; // 10 MB
         Cache cache = new Cache(httpCacheDirectory, cacheSize);
         this.okHttpClient = new OkHttpClient.Builder()
                 .cache(cache)
