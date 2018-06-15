@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/good_image"
         android:text="Products name"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:layout_toEndOf="@+id/good_image"
         android:layout_toRightOf="@+id/good_image" />
 
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1000.0"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:layout_alignBottom="@+id/good_image"
         android:layout_toEndOf="@+id/good_image"
         android:layout_toRightOf="@+id/good_image" />
