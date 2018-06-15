@@ -15,18 +15,19 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 import ua.moses.prestamag.R;
+import ua.moses.prestamag.controller.PrestashopClient;
 import ua.moses.prestamag.controller.PrestashopService;
 import ua.moses.prestamag.entity.Product;
 
 public class ProductsAdapter extends BaseAdapter {
     private List<Product> productList;
     private Context context;
-    private OkHttpClient okHttpClient;
+    private PrestashopClient client;
 
-    public ProductsAdapter(List<Product> productList, Context context, OkHttpClient okHttpClient) {
+    public ProductsAdapter(List<Product> productList, Context context, PrestashopClient client) {
         this.productList = productList;
         this.context = context;
-        this.okHttpClient = okHttpClient;
+        this.client = client;
     }
 
     private static class ViewHolder {
@@ -67,15 +68,17 @@ public class ProductsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.goodName.setText(productList.get(position).getName());
-        viewHolder.goodPrice.setText("" + productList.get(position).getPrice());
+        final Product product = productList.get(position);
+        viewHolder.goodName.setText(product.getName());
+        viewHolder.goodPrice.setText("" + product.getPrice());
+
 
 
 // todo control scrolling http://lucasr.org/2014/09/23/new-features-in-picasso/
         Picasso picasso = new Picasso.Builder(this.context)
-                .downloader(new OkHttp3Downloader(okHttpClient))
+                .downloader(new OkHttp3Downloader(client.getOkHttpClient()))
                 .build();
-        picasso.load(productList.get(position).getDefaultFotoLink())
+        picasso.load(client.getImageUrl(product.getId(),product.getIdDefaultImage(), PrestashopClient.IMAGES_TYPES.small_default))
                 .resize(100, 100)
                 .centerCrop()
                 .placeholder((R.drawable.ic_menu_gallery))

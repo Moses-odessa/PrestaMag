@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import ua.moses.prestamag.entity.Category;
 import ua.moses.prestamag.entity.Product;
+import ua.moses.prestamag.entity.ProductDetails;
 
 import static org.junit.Assert.*;
 
@@ -55,6 +56,17 @@ public class PrestashopServiceTest {
         Call<Map<String, List<Product>>> call = service.listProducts(2);
         Map<String, List<Product>> body = call.execute().body();
         List<Product> list = body.get("products");
+        assertNotNull(list);
+        assertNotEquals(0, list.size());
+    }
+
+    @Test
+    public void productDetailsTest() throws IOException {
+        PrestashopService service = client.getService();
+        Call<Map<String, List<ProductDetails>>> call = service.productDetails(1);
+        final Response<Map<String, List<ProductDetails>>> execute = call.execute();
+        Map<String, List<ProductDetails>> body = execute.body();
+        List<ProductDetails> list = body.get("product");
         assertNotNull(list);
         assertNotEquals(0, list.size());
     }

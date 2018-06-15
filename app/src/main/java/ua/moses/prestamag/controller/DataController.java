@@ -79,7 +79,7 @@ public class DataController {
                 if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
                     productsList.addAll(response.body().get("products"));
                 }
-                viewsManager.updateProducts(productsList, client.getOkHttpClient());
+                viewsManager.updateProducts(productsList, client);
             }
 
             @SuppressLint("ShowToast")

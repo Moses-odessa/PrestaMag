@@ -17,6 +17,14 @@ public class PrestashopClient {
     private Retrofit retrofit;
     private final int CACHE_SIZE = 50;
 
+    public enum IMAGES_TYPES {
+        cart_default,
+        home_default,
+        large_default,
+        medium_default,
+        small_default,
+        thickbox_default};
+
     public PrestashopClient(Context context) {
         File httpCacheDirectory = new File(context.getCacheDir(), ".responsesCache");
         int cacheSize = CACHE_SIZE * 1024 * 1024; // 10 MB
@@ -44,5 +52,9 @@ public class PrestashopClient {
 
     public PrestashopService getService() {
         return retrofit.create(PrestashopService.class);
+    }
+
+    public String getImageUrl(int productId, int imageId, IMAGES_TYPES type) {
+        return PrestashopClient.BASE_URL + "images/products/" + productId + "/" + imageId + "/" + type;
     }
 }
