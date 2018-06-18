@@ -63,12 +63,12 @@ public class PrestashopServiceTest {
     @Test
     public void productDetailsTest() throws IOException {
         PrestashopService service = client.getService();
-        Call<Map<String, List<ProductDetails>>> call = service.productDetails(1);
-        final Response<Map<String, List<ProductDetails>>> execute = call.execute();
-        Map<String, List<ProductDetails>> body = execute.body();
-        List<ProductDetails> list = body.get("product");
-        assertNotNull(list);
-        assertNotEquals(0, list.size());
+        Call<Map<String, ProductDetails>> call = service.productDetails(1);
+        final Response<Map<String, ProductDetails>> execute = call.execute();
+        Map<String, ProductDetails> body = execute.body();
+        ProductDetails productDetails = body.get("product");
+        assertNotNull(productDetails);
+        assertEquals(1, productDetails.getId());
     }
 
 }

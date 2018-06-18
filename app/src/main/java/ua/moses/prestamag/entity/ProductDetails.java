@@ -3,6 +3,7 @@ package ua.moses.prestamag.entity;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductDetails {
     private int id;
@@ -13,17 +14,17 @@ public class ProductDetails {
     @SerializedName("manufacturer_name")
     private String manufacturerName;
     private List<LocalizedTitle> description;
-    private List<Integer> images;
+    private Association associations;
 
-    public ProductDetails(int id, List<LocalizedTitle> name, double price, int idDefaultImage, List<LocalizedTitle> description, List<Integer> images) {
+    public ProductDetails(int id, List<LocalizedTitle> name, double price, int idDefaultImage, String manufacturerName, List<LocalizedTitle> description, Association associations) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.idDefaultImage = idDefaultImage;
+        this.manufacturerName = manufacturerName;
         this.description = description;
-        this.images = images;
+        this.associations = associations;
     }
-
 
     public int getId() {
         return id;
@@ -45,7 +46,11 @@ public class ProductDetails {
         return description.get(0).getValue();
     }
 
-    public List<Integer> getImages() {
-        return images;
+    public String getManufacturerName() {
+        return manufacturerName;
+    }
+
+    public Association getAssociations() {
+        return associations;
     }
 }

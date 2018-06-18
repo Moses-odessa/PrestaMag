@@ -23,5 +23,5 @@ public interface PrestashopService {
     Call<Map<String, List<Product>>> listProducts(@Query("filter[id_category_default]") int... filter);
 
     @GET("products/{id}/?output_format=JSON")
-    Call<Map<String, List<ProductDetails>>> productDetails(@Path("id") int id);
+    Call<Map<String, ProductDetails>> productDetails(@Path("id") int id);
 }
