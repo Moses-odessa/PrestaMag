@@ -13,6 +13,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ua.moses.prestamag.entity.Category;
 import ua.moses.prestamag.entity.Product;
+import ua.moses.prestamag.entity.ProductDetails;
 import ua.moses.prestamag.view.ViewsManager;
 
 public class DataController {
@@ -33,7 +34,7 @@ public class DataController {
                 if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
                     categoriesList.addAll(response.body().get("categories"));
                 }
-                if (parentCategoryId != 0) {
+                if (parentCategoryId != PrestashopClient.ROOT_CATEGORY_ID) {
                     Call<Map<String, List<Category>>> callParent = client.getService().categoryById(parentCategoryId);
                     Map<String, List<Category>> body;
                     callParent.enqueue(new Callback<Map<String, List<Category>>>() {
@@ -85,8 +86,7 @@ public class DataController {
             @SuppressLint("ShowToast")
             @Override
             public void onFailure(@NonNull Call<Map<String, List<Product>>> call, @NonNull Throwable t) {
-                Toast.makeText(viewsManager.getContext(), "Connection error!!!\n" + t.getMessage(), Toast.LENGTH_LONG);
-                //viewsManager.updateCategories(categoriesList);
+                Toast.makeText(viewsManager.getContext(), "Connection error!!!\n" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -94,5 +94,24 @@ public class DataController {
     public void update(int parentCategoryId) {
         updateCategoriesList(parentCategoryId);
         updateGoodsList(parentCategoryId);
+    }
+
+    public void getDetails(int productId) {
+        Call<Map<String, ProductDetails>> call = client.getService().productDetails(productId);
+        call.enqueue(new Callback<Map<String, ProductDetails>>() {
+            @Override
+            public void onResponse(Call<Map<String, ProductDetails>> call, Response<Map<String, ProductDetails>> response) {
+                ProductDetails productDetails = null;
+                if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
+                    productDetails =response.body().get("product");
+                }
+                viewsManager.showDetail(productDetails, client);
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, ProductDetails>> call, Throwable t) {
+                Toast.makeText(viewsManager.getContext(), "Connection error!!!\n" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

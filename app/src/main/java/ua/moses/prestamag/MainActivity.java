@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import ua.moses.prestamag.controller.DataController;
+import ua.moses.prestamag.controller.PrestashopClient;
 import ua.moses.prestamag.view.ViewsManager;
 
 public class MainActivity extends AppCompatActivity
@@ -53,15 +54,15 @@ public class MainActivity extends AppCompatActivity
         final ListView listGoods = (ListView) findViewById(R.id.listGoods);
         viewsManager = new ViewsManager(this, listCategories, listGoods);
         dataController = new DataController(viewsManager);
-        dataController.update(0);
+        dataController.update(PrestashopClient.ROOT_CATEGORY_ID);
 
-        listCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //dataController.setCurrentCategoryId((int) id);
-                dataController.update((int) id);
-            }
+        listCategories.setOnItemClickListener((parent, view, position, id) -> {
+            dataController.update((int) id);
         });
+
+        listGoods.setOnItemClickListener(((parent, view, position, id) -> {
+            dataController.getDetails((int) id);
+        }) );
     }
 
     @Override

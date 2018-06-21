@@ -13,10 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import okhttp3.OkHttpClient;
 import ua.moses.prestamag.R;
 import ua.moses.prestamag.controller.PrestashopClient;
-import ua.moses.prestamag.controller.PrestashopService;
 import ua.moses.prestamag.entity.Product;
 
 public class ProductsAdapter extends BaseAdapter {
@@ -60,8 +58,8 @@ public class ProductsAdapter extends BaseAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.good_item, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.goodName = (TextView) convertView.findViewById(R.id.good_name);
-            viewHolder.goodPrice = (TextView) convertView.findViewById(R.id.good_price);
+            viewHolder.goodName = (TextView) convertView.findViewById(R.id.product_name);
+            viewHolder.goodPrice = (TextView) convertView.findViewById(R.id.product_price);
             viewHolder.goodImage = (ImageView) convertView.findViewById(R.id.good_image);
             convertView.setTag(viewHolder);
         } else {

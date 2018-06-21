@@ -16,7 +16,7 @@
 
     <!-- Title -->
     <TextView
-        android:id="@+id/good_name"
+        android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/good_image"
@@ -27,7 +27,7 @@
 
     <!-- price -->
     <TextView
-        android:id="@+id/good_price"
+        android:id="@+id/product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1000.0"
@@ -36,13 +36,4 @@
         android:layout_toEndOf="@+id/good_image"
         android:layout_toRightOf="@+id/good_image" />
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_alignBottom="@+id/good_image"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
 </RelativeLayout>

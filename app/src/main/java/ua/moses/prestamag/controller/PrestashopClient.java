@@ -11,7 +11,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PrestashopClient {
-    public static final String BASE_URL = "http://homey.in.ua/api/";
+    public static final int ROOT_CATEGORY_ID = 1;
+    private static final String BASE_URL = "http://homey.in.ua/api/";
     private final String SECURITY_KEY = "CM67C92UKYFPE2U7837YH4HGDBV78FBH";
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
@@ -54,7 +55,7 @@ public class PrestashopClient {
         return retrofit.create(PrestashopService.class);
     }
 
-    public String getImageUrl(int productId, int imageId, IMAGES_TYPES type) {
+    public static String getImageUrl(int productId, int imageId, IMAGES_TYPES type) {
         return PrestashopClient.BASE_URL + "images/products/" + productId + "/" + imageId + "/" + type;
     }
 }
